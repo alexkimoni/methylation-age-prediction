@@ -1,4 +1,4 @@
-# extract_real_ages_final.py - Extract the REAL ages from line 43
+# extract_real_ages_final.py - Extract the ages from line 43
 import pandas as pd
 import numpy as np
 import re
@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 print("="*60)
-print("EXTRACTING REAL AGES FROM GSE40279")
+print("Extracting ages from GSE40279")
 print("="*60)
 
 # Read the series matrix file and extract ages
@@ -81,23 +81,23 @@ else:
     meth_data = meth_data.iloc[:min_samples]
     print(f"Using first {min_samples} samples")
 
-# Add REAL ages to methylation data
+# Add ages to methylation data
 meth_data['age'] = ages
 
 # Save complete dataset
 meth_data.to_csv('data/GSE40279_FINAL_with_real_ages.csv', index=False)
-print(f"💾 Saved final dataset with REAL ages")
+print(f"💾 Saved final dataset with ages")
 
-# Check correlations with REAL ages
-print("\n📊 Analyzing correlations with REAL ages...")
+# Check correlations with ages
+print("\n📊 Analyzing correlations with ages...")
 correlations = meth_data.corr()['age'].drop('age').abs().sort_values(ascending=False)
 print(f"   Max correlation: {correlations.iloc[0]:.3f}")
 print(f"   Top 10 average: {correlations.head(10).mean():.3f}")
 print(f"   Sites with >0.3: {(correlations > 0.3).sum()}")
 print(f"   Sites with >0.5: {(correlations > 0.5).sum()}")
 
-# Machine Learning with REAL ages
-print("\n🤖 Training models with REAL ages...")
+# Machine Learning with ages
+print("\n🤖 Training models with  ages...")
 
 X = meth_data.drop('age', axis=1)
 y = meth_data['age']
@@ -136,7 +136,7 @@ fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 axes[0, 0].hist(y, bins=30, edgecolor='black', color='steelblue')
 axes[0, 0].set_xlabel('Age (years)')
 axes[0, 0].set_ylabel('Count')
-axes[0, 0].set_title(f'REAL Age Distribution\nMean: {y.mean():.1f}')
+axes[0, 0].set_title(f'Age Distribution\nMean: {y.mean():.1f}')
 
 # Top correlations
 axes[0, 1].barh(range(10), correlations.head(10).values, color='coral')
@@ -180,21 +180,20 @@ axes[1, 2].set_yticklabels([str(x)[:12] for x in importance['feature'].values], 
 axes[1, 2].set_xlabel('Importance')
 axes[1, 2].set_title('Top 10 Important CpGs')
 
-plt.suptitle('GSE40279 with REAL AGES - Final Results', fontsize=14, fontweight='bold')
+plt.suptitle('GSE40279 with extracted AGES - Final Results', fontsize=14, fontweight='bold')
 plt.tight_layout()
-plt.savefig('results/FINAL_real_ages_analysis.png', dpi=150, bbox_inches='tight')
+plt.savefig('results/FINAL_extracted_ages_analysis.png', dpi=150, bbox_inches='tight')
 plt.show()
 
 print("\n" + "="*60)
-print("🎉 SUCCESS! ANALYSIS WITH REAL AGES COMPLETE!")
+print("🎉 SUCCESS! analysis with extraced ages completed!")
 print("="*60)
 print(f"Dataset: GSE40279 (Horvath 2013)")
 print(f"Samples: {len(meth_data)}")
 print(f"CpG sites: {len(X.columns)}")
-print(f"REAL Age range: {y.min():.0f} - {y.max():.0f} years")
+print(f"Age range: {y.min():.0f} - {y.max():.0f} years")
 print(f"\nFinal Results:")
 print(f"  Linear Regression MAE: {lr_mae:.2f} years")
 print(f"  Random Forest MAE: {rf_mae:.2f} years")
 print(f"  Best R²: {max(lr_r2, rf_r2):.3f}")
-print(f"\n✅ These are REAL results with REAL ages from the actual study!")
-print("Your analysis is now complete and ready for submission!")
+print("\n✅Analysis is now complete!")
