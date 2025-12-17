@@ -2,13 +2,12 @@
 
 ## Project Structure
 - `data/` - Dataset files
-- `notebooks/` - Jupyter notebooks
 - `results/` - Output files and visualizations
-- `methylation_analysis.py` - Main analysis script
+- `methylation_age_analysis.py` - Main analysis script
 
 ## How to Run
 1. Navigate to project folder
-2. Run: `python methylation_analysis.py`
+2. Run: `python methylation_age_analysis.py`
 
 ## Results
 - Linear Regression MAE: ~5-6 years
